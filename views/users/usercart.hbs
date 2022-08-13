@@ -1,0 +1,300 @@
+{{!-- <section class="" style="background-color: #eee; " id="changeProduct">
+  <div class="container py-5">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-10">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+          <div>
+            <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!" class="text-body">price <i
+                  class="fas fa-angle-down mt-1"></i></a></p>
+          </div>
+        </div>
+        {{#each product}}
+        <div class="card rounded-3 mb-4">
+          <div class="card-body p-4">
+            <div class="row d-flex justify-content-between align-items-center">
+              <div class="col-md-2 col-lg-2 col-xl-2">
+                <img src="upload/{{this.product.image}}" class="img-fluid rounded-3" alt="Cotton T-shirt">
+              </div>
+
+              <div class="col-md-3 col-lg-3 col-xl-3">
+                <p class="lead fw-normal mb-2">{{this.product.name}}</p>
+              </div>
+
+
+
+              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                <button class="btn btn-link px-2"
+                  onclick="changeCount('{{this.count}}','-1','{{this.item}}','{{this._id}}');">
+                  <i class="fas fa-minus"></i>
+                </button>
+
+                <p>{{this.count}}</p>
+
+                <button class="btn btn-link px-2"
+                  onclick="changeCount('{{this.count}}','1','{{this.item}}', '{{this._id}}');">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+              <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                <h5 class="mb-0">${{this.product.price}}</h5>
+              </div>
+              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                <a href="#" onclick="deleteItem('{{this._id}}','{{this.item}}')" class="text-danger"><i
+                    class="fas fa-trash fa-lg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+
+
+        <div class="card mb-4">
+          <div class="card-body p-4 d-flex flex-row">
+            <div class="form-outline flex-fill">
+              <input type="text" id="form1" class="form-control form-control-lg" />
+              <label class="form-label" for="form1">Discound code</label>
+            </div>
+            <button type="button" class="btn btn-outline-warning btn-lg ms-3">Apply</button>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body d-flex">
+            <div class="form-outline d-flex" style="align-items: center;">
+              <label class="form-label" for="form1">Total Price: </label>
+              <p class="mx-2" style="font-size: 1.5rem;">
+                ${{total}}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <a href="/place-order" type="button" class="btn btn-warning btn-block btn-lg">Place Order</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section> --}}
+{{!-- cart --}}
+<section class="my-5" style="background-color: black" id="changeProduct">
+  <div class="container">
+    <div class="row d-flex justify-content-center align-items-center  my-4">
+      <div class="col my-5">
+        <p><span class="h2">Cart </span></p>
+
+        {{#each product}}
+
+        <div class="card mb-4" id="">
+          <div class="card-body p-4">
+
+            <div class="row align-items-center">
+              <div class="col-md-2">
+                <img src="upload/{{this.product.image}}" class="img-fluid" alt="Generic placeholder image">
+              </div>
+              <div class="col-md-2 d-flex justify-content-center">
+                <div>
+                  <p class="small text-muted mb-4 pb-2">Name</p>
+                  <p class="lead fw-normal mb-0">{{this.product.name}}</p>
+                </div>
+              </div>
+
+              <div class="col-md-2 d-flex justify-content-center">
+                <div>
+                  <p class="small text-muted mb-4 pb-2">Price</p>
+                  <p class="lead fw-normal mb-0">${{this.product.price}}</p>
+                </div>
+              </div>
+
+              <div class="col-md-2 d-flex justify-content-center">
+                <div>
+                  <p class="small text-muted mb-4 pb-2" style="text-align: center;">Quantity</p>
+                  <div class="d-flex">
+
+                    <button class="btn btn-link px-2"
+                      onclick="changeCount('{{this.count}}','-1','{{this.item}}', '{{this._id}}');">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <p>{{this.count}}</p>
+                    <button class="btn btn-link px-2"
+                      onclick="changeCount('{{this.count}}','1','{{this.item}}', '{{this._id}}');">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 d-flex justify-content-center">
+                <div>
+                  <p class="small text-muted mb-4 pb-2">Total</p>
+                  <p class="lead fw-normal mb-0">${{this.total}}</p>
+                </div>
+              </div>
+              <div class="col-md-2 d-flex justify-content-center">
+                <div>
+                  <p class="small text-muted mb-4 pb-2"></p>
+                  <a href="#" onclick="deleteItem('{{this._id}}','{{this.item}}')" class="text-danger"><i
+                      class="fas fa-trash fa-lg"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+
+        <div class="card mb-5">
+          <div class="card-body p-4">
+
+            <div class="float-end">
+              <p class="mb-0 me-5 d-flex align-items-center">
+                <span class="small text-muted me-2">Order total:</span> <span id="total"
+                  class="lead fw-normal">${{total}}</span>
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        {{!-- apply coupen --}}
+
+        <div class="card mb-4">
+          <div class="card-body p-4 d-flex flex-row">
+            <div class="form-outline flex-fill">
+              <input type="text" id="couponForm" class="form-control form-control-lg" />
+              <label class="form-label" for="couponForm">Discound code</label>
+            </div>
+            <button type="button" id="applyCoupen" onclick="applyCoupen('{{total}}')"
+              class="btn btn-outline-warning btn-lg ms-3">Apply</button>
+          </div>
+
+          {{#each coupens}}
+
+          <div class="d-flex justify-content-between p-4">
+
+            <p>You have a Coupon to apply</p>
+            <button class="btn btn-primary" id="coupenButton" onclick="couponPress()">
+              {{this.coupenCode}}
+            </button>
+
+          </div>
+
+          {{/each}}
+
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <a href="/place-order" type="button" class="btn btn-warning btn-block btn-lg">Place Order</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+
+
+  function applyCoupen(totalPrice) {
+    $.ajax({
+      url: "/applyCoupen",
+      method: "post",
+      data: {
+        coupenCode: $('#couponForm').val(),
+        totalPrice
+      },
+      success: (response) => {
+
+        document.getElementById("total").innerHTML = response.price
+
+        if (response.status) {
+          Swal.fire(
+            'Congrats!!',
+            response.message,
+            'success'
+          )
+        } else {
+
+          Swal.fire(
+            'Oops!!',
+            response.message,
+            'error'
+          )
+        }
+      }
+    })
+
+  }
+
+  function couponPress() {
+
+    const couponInput = document.getElementById("couponForm")
+    const couponButton = document.getElementById("coupenButton").innerText
+
+    couponInput.value = couponButton
+
+  }
+
+
+  function changeCount(quantity, count, productId, cartId) {
+
+    console.log(quantity, count, productId, cartId)
+
+    $.ajax({
+      url: "/changecount",
+      data: {
+        quantity: quantity,
+        count: count,
+        productId: productId,
+        cartId: cartId,
+      },
+      method: 'post',
+      success: (response) => {
+        console.log("response")
+        if (response.removeProduct) {
+          alert("Product removed from cart")
+          $("#changeProduct").load(location.href + " #changeProduct")
+
+        } else {
+          $("#changeProduct").load(location.href + " #changeProduct")
+        }
+      }
+    })
+  }
+ function deleteItem(cartId, productId) {
+    swal({
+      title: "Are you sure ?",
+      text: "Your item will be removed",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          $.ajax({
+            url: "/cart-item-delete",
+            data: {
+              productId: productId,
+              cartId: cartId
+            },
+            method: 'post',
+            success: (response) => {
+              swal(" Your item had been deleted!", {
+                icon: "success",
+              });
+              $("#changeProduct").load(location.href + " #changeProduct")
+            }
+          })
+        }
+      });
+
+  }
+</script>

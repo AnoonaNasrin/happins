@@ -1,0 +1,59 @@
+<div
+  style="position: absolute; height: 110vh; width: 100vw; margin-top: 4rem;  background-image: url(https://images.unsplash.com/photo-1509458844418-596a0af865da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80); background-size:cover;">
+
+</div>
+
+<section class=" gradient-custom vh-100" style="margin-top: 6rem; margin-bottom: 3rem;">
+  <div class="container py-5">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-transparent text-danger " style="border-radius: 1rem;box-shadow: 2px 2px 7px #222">
+          <div class="card-body p-5 text-center">
+
+            <div class="mb-md-5 mt-md-4 pb-5">
+
+              <h2 class="fw-bold mb-2 text-uppercase text-light">Login</h2>
+              <p class="text-light mb-5">Please enter your login and
+                password!</p>
+              <form action="/login" method="post" id="userlogin">
+                {{#if loginErr}}
+                <p style="color: red;" class="error">Wrong email and password ! </p>
+                {{/if}}
+                <div class="form-outline form-white mb-4">
+                  <label class="form-label text-light" for="typeEmailX">Email</label>
+                  <input type="email" id="typeEmailX"  class="form-control form-control-lg bg-transparent text-light "
+                    name="email"  required/>
+                </div>
+
+                <div class="form-outline form-white mb-4">
+                  <label class="form-label text-light" for="typePasswordX">Password</label>
+                  <input type="password" id="typePasswordX" class="form-control form-control-lg bg-transparent text-light "
+                   name="password" required/>
+                </div>
+                <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+            </div>
+            <div>
+              <p class="mb-0 text-light">Don't have an account?
+                <a href="/signup" class="text-white-50 fw-bold">Sign Up</a>
+              </p>
+            </div>
+            <p>or</p>
+            <div>
+                <p class="mb-0 text-light">Login with Email?
+                    <a href="/otplogin" class="text-white-50 fw-bold">Otp Login</a>
+                </p>
+            </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+{{!-- jquery link  --}}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script>
+  $("#userlogin").validate();
+</script>

@@ -1,0 +1,76 @@
+{{!-- jquery link --}}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery- validate/1.19.5/additional-methods.js"></script>
+  <div
+   style="position: absolute; height: 110vh; width:100vw; margin-top:4rem; background-size:cover; background-position: center; background-image: url('https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');"></div>                                                
+<section class="vh-100 bg-image vh-100" style="margin-top: 6rem; margin-bottom: 3rem" >                                                                                                                                                                                          
+ 
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3 ">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card bg-transparent text-danger" style="border-radius: 15px; box-shadow: 1px 1px 5px #222">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5 text-light">Create an account</h2>
+
+              <form action="/signup" method="post" id="signup">
+
+                <div class="form-outline mb-4">
+                  <label class="form-label text-light" for="form3Example1cg">Your Name</label>
+                  <input type="text"  id="form3Example1cg" class="form-control form-control-lg bg-transparent text-light"
+                    name="name"  lettersonly=true  required/>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label text-light" for="form3Example3cg">Your Email</label>
+                  <input type="email" id="form3Example3cg"
+                    class="form-control form-control-lg bg-transparent text-light" name="email" required />
+                  {{#if existEm}}
+                  <h6 class="text-danger">email already exist</h6>
+                  {{/if}}
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label text-light" for="form3Example4cg">Password</label>
+                  <input type="password" id="form3Example4cg"
+                    class="form-control form-control-lg bg-transparent text-light" name="password" required />
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label text-light" for="form3Example4cdg">Mobile</label>
+                  <input type="number" id="form3Example4cdg" minlength="10" maxlength="10"
+                    class="form-control form-control-lg bg-transparent text-light" name="number" required />
+                  {{#if existNu}}
+                  <h6 class="text-danger">mobile number already exist </h6>
+                  {{/if}}
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 ">Register</button>
+                </div>
+
+                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login"
+                    class="fw-bold text-body "><u>Login here</u></a></p>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  $("#signup").validate();
+jQuery.validator.addMethod("lettersonly", function (value, element) {
+        return this.optional(element) || /^[a-z]+$/i.test(value);
+    }, "Letters only please");
+
+    $.validator.addMethod("noCaps", function (value, element) {
+        return this.optional(element) || !/[A-Z]/.test(value);
+    }, "email can't have upper case letters")
+
+
+</script>

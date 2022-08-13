@@ -1,0 +1,109 @@
+<section class="regervation_part section_padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-5">
+        <div class="section_tittle">
+          <p>Reservation</p>
+          <h2>Book A Table</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="regervation_part_iner">
+          <form id="booking">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="email" name="name" class="form-control" id="inputEmail4" placeholder="Name *" required />
+              </div>
+              <div class="form-group col-md-6">
+                <input type="password" name="email" class="form-control" id="inputPassword4"
+                  placeholder="Email address *" required />
+              </div>
+              <div class="form-group col-md-6">
+                <select name="count" class="form-control" id="Select">
+                  <option value="0" selected>Persons *</option>
+                  <option value="1">Number of guests 1</option>
+                  <option value="2">Number of guests 2</option>
+                  <option value="3">Number of guests 3</option>
+                  <option value="4">Number of guests 4</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="text" name="number" class="form-control" id="phone" placeholder="Phone number *"
+                  required />
+              </div>
+              <div class="form-group col-md-6">
+                <select name="date" class="form-control">
+                  <option id="today"> Today </option>
+                  <option id="tomorrow">Tomorrow</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <select name="time" class="form-control" id="Select2">
+                  <option value="" selected>Time *</option>
+                  <option value="1">8 AM TO 10AM</option>
+                  <option value="1">10 AM TO 12PM</option>
+                  <option value="1">12PM TO 2PM</option>
+                  <option value="1">2PM TO 4PM</option>
+                  <option value="1">4PM TO 6PM</option>
+                  <option value="1">6PM TO 8PM</option>
+                  <option value="1">4PM TO 10PM</option>
+                  <option value="1">10PM TO 12PM</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="regerv_btn btn_4" type="submit">
+              Book A Table
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--::regervation_part end::-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
+  integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+
+<script>
+  $('#booking').submit((event) => {
+    event.preventDefault()
+    $.ajax({
+      url: '/booktable',
+      method: "post",
+      data: $('#booking').serialize(),
+      success: (response) => {
+        if (response.book) {
+          Swal.fire(
+            'Thank you',
+            'Your booking successful!',
+            'success'
+          )
+        } else {
+
+          Swal.fire(
+            'Sorry',
+            'Booking is full ',
+            'error'
+          )
+        }
+      }
+    })
+
+  })
+
+  const today = document.getElementById("today")
+  const tomorrow = document.getElementById("tomorrow")
+
+  today.innerHTML = moment().format('L')
+  today.value = moment().format('L')
+
+  tomorrow.value = moment().add(1, 'days').format('L')
+  tomorrow.innerHTML = moment().add(1, 'days').format('L')
+</script>
