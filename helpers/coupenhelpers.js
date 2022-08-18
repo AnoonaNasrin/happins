@@ -40,7 +40,6 @@ module.exports = {
                     }
                 }
             ])
-
             if (coupen[0]) {
 
                 if (coupen[0].minAmount < totalAmount) {

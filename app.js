@@ -48,11 +48,12 @@ app.use(cookieParser());
 app.use(session({ secret: "itc", reserve: false, saveUninitialized: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/admin", express.static(path.join(__dirname, "public")));
-app.use("/admin/usermanagement/edit",express.static(path.join(__dirname,"public")))
-app.use("/admin/productmanagement/edit",express.static(path.join(__dirname,"public")))
+app.use("/admin/usermanagement/edit", express.static(path.join(__dirname, "public")))
+app.use("/admin/productmanagement/edit", express.static(path.join(__dirname, "public")))
 app.use("/menu", express.static(path.join(__dirname, 'public')))
 app.use('/cart/:id', express.static(path.join(__dirname, "public")))
-app.use('/item-detail/:id',express.static(path.join(__dirname,'public')))
+app.use('/item-detail/:id', express.static(path.join(__dirname, 'public')))
+app.use('/menu/:id', express.static(path.join(__dirname, "public")))
 
 
 app.use("/", usersRouter);

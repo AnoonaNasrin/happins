@@ -127,8 +127,8 @@
                                     </div>
                                     <div class="card-body p-4" id="op">
                                         <div class="d-flex justify-content-between align-items-center mb-4">
-                                            <p class="lead fw-normal mb-0" style="color: rgb(45, 28, 28);">Receipt</p>
-                                            <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p>
+                                            {{!-- <p class="lead fw-normal mb-0" style="color: rgb(45, 28, 28);">Receipt</p>
+                                            <p class="small text-muted mb-0"></p> --}}
                                         </div>
                                         <div class="card shadow-0 border mb-4" >
                                             <div class="card-body">
@@ -148,7 +148,7 @@
                                                     </div>
                                                     <div
                                                         class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                                        <p class="text-muted mb-0 small">${{this.product.price}}</p>
+                                                        <p class="text-muted mb-0 small"> &#x20B9;{{this.product.price}}</p>
                                                     </div>
                                                     <div
                                                         class="col-md-2 text-center d-flex justify-content-center align-items-center">
@@ -170,7 +170,7 @@
                                             <h5
                                                 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">
                                                 Total
-                                                paid: <span class="h2 mb-0 ms-2">${{orderTotal}}</span></h5>
+                                                paid: <span class="h2 mb-0 ms-2"> &#x20B9; {{orderTotal}}</span></h5>
                                         </div>
                                     </div>
                                 </div>

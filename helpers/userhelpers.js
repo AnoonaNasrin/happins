@@ -44,8 +44,8 @@ module.exports = {
 
       }
     })
-
   },
+
   doSignup: async (userData) => {
     return new Promise(async (res, rej) => {
       let valid = {};
@@ -63,6 +63,7 @@ module.exports = {
       }
     });
   },
+
   doExist: (userData) => {
     return new Promise(async (res, rej) => {
       let exist = {};
@@ -74,13 +75,14 @@ module.exports = {
       res(exist);
     });
   },
+
   getAllProduct: () => {
     return new Promise(async (res, rej) => {
-
       const product = await productModel.find({}).lean();
       res(product);
     })
   },
+
   category: (type) => {
     return new Promise(async (res, rej) => {
       const categ = await productModel.find({ category: type }).lean()
@@ -98,6 +100,7 @@ module.exports = {
       }
     })
   },
+
   placeOrder: (order, products, total) => {
     return new Promise(async (res, rej) => {
       console.log(order, products, total);
@@ -121,6 +124,7 @@ module.exports = {
     )
   }
   ,
+
   getProductList: (userId) => {
     return new Promise(async (res, rej) => {
       const cart = await cartModel.findOne({ userId: userId }).lean();
@@ -128,10 +132,11 @@ module.exports = {
     }
     )
   },
+
   generateRazorpay: (orderId, totalPrice) => {
     return new Promise((res, rej) => {
       const options = {
-        amount: totalPrice * 1000,
+        amount: totalPrice * 100,
         currency: "INR",
         receipt: orderId
       };
@@ -145,6 +150,7 @@ module.exports = {
       });
     })
   },
+
   verifyPayment: (Details) =>
     new Promise((resolve, reject) => {
       let hmac = crypto.createHmac("sha256", secretKey);
@@ -161,6 +167,7 @@ module.exports = {
         reject();
       }
     }),
+
   changePaymentStatus: (orderId) => {
     return new Promise(async (res, rej) => {
       const changePayment = await orderModel.updateOne({ _id: orderId }, {
@@ -225,6 +232,7 @@ module.exports = {
   },
   cancelOrder: (orderId, productId) => {
     return new Promise(async (res, rej) => {
+
       const cancel = await orderModel.updateOne(
         {
           _id: ObjectId(orderId)
@@ -238,6 +246,40 @@ module.exports = {
             }
           }
         })
+      const total = await orderModel.aggregate([{
+        $match: {
+          _id: ObjectId(orderId)
+        }
+      }, { $unwind: "$products" },
+      {
+        $lookup: {
+          from: "products",
+          localField: "products.productId",
+          foreignField: "_id",
+          as: "product"
+        }
+      },
+      {
+        $project: {
+          product: {
+            "$arrayElemAt":
+              ["$product", 0]
+          },
+          quantity: "$products.quantity"
+        }
+      }, {
+        $group: {
+          _id: null,
+          total: {
+            $sum: {
+              $multiply: ["$quantity", "$product.price"]
+            }
+          }
+        }
+      }
+      ])
+      console.log(total);
+      await orderModel.updateOne({_id:orderId},{$set:{totalAmount:total[0].total}})
       res(cancel);
     })
   },
@@ -261,7 +303,7 @@ module.exports = {
           createdAt: 1,
           totalAmount: 1,
           deliveryDetails: 1,
-          orderStatus:"$products.orderStatus",
+          orderStatus: "$products.orderStatus",
           quantity: "$products.quantity",
           productId: "$products.productId",
           products: 1,
@@ -286,7 +328,7 @@ module.exports = {
           deliveryDetails: 1,
           quantity: 1,
           user: 1,
-          orderStatus:1,
+          orderStatus: 1,
           product: {
             $arrayElemAt: ['$product', 0]
           }
@@ -417,5 +459,28 @@ module.exports = {
     })
 
   },
+  getOrderTotalPayment: (userId) => {
+    return new Promise(async (res, rej) => {
+      const totalPayment = await orderModel.aggregate([{
+        $match: {
+          userId: ObjectId(userId),
+          status: "placed"
+        }
+      },
+
+      {
+        $group: {
+          _id: null,
+          totalAmount: {
+            $sum: {
+              $toDecimal: "$totalAmount"
+            }
+          }
+        }
+      }
+      ])
+      res(totalPayment[0].totalAmount);
+    })
+  }
 }
 

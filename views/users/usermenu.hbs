@@ -32,7 +32,7 @@
                   <div class="media-body align-self-center">
                     <h3>{{this.name}}</h3>
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                      <h5>${{this.price}}</h5>
+                      <h5> &#x20B9;<span class="text-decoration-line-through" id="price">{{this.price}}</span> &#x20B9;{{this.price}}</h5>
                       <a href="/add-to-cart/{{this._id}}" style=" text-decoration: none;  padding-right: 2rem;"><i
                           class="bi bi-cart" style="height: 3rem;"></i></a>
                     </div>
@@ -48,3 +48,8 @@
   </div>
   </div>
 </section>
+<script>
+    const price = document.getElementById('price')
+    price.innerHTML = parseInt(price.innerHTML) * 2
+
+</script>

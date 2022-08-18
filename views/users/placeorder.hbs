@@ -105,14 +105,14 @@
                             {{#each address}}
                             <div class="col-md-4 ">
                                 <h4> {{this.addressDetails.addressName}} </h4>
-                                <p> {{this.addressDetails.address}} ,  <br> <span>  {{this.addressDetails.pincode}}  <br> </span>
-                                    <span>  {{this.addressDetails.phone}}  </span>
+                                <p> {{this.addressDetails.address}} , <br> <span> {{this.addressDetails.pincode}} <br>
+                                    </span>
+                                    <span> {{this.addressDetails.phone}} </span>
                                 </p>
                             </div>
                             <div class="col-md-7 d-flex justify-content-end">
-
-                                <input type="radio" id="addressRadio" value="{{this.addressDetails._id}}" name="addressDetail">
-
+                                <input type="radio" id="addressRadio" value="{{this.addressDetails._id}}"
+                                    name="addressDetail">
                             </div>
                             {{/each}}
                             <div class="col-md-7">
@@ -131,11 +131,10 @@
                                     <div class="col-md-8 mb-4">
                                         <div class="card mb-4">
                                             <div class="card-header py-3">
-                                                <h5 class="mb-0 text-font text-uppercase">Delivery address</h5>
+                                                <h5 class="mb-0 text-font text-uppercase"> Delivery address </h5>
                                             </div>
                                             <div class="card-body">
                                                 <form id="addressForm">
-
                                                     <div class="row mb-4">
                                                         <div class="col">
                                                             <div class="form-outline">
@@ -150,20 +149,20 @@
                                                     <!-- Text input -->
                                                     <div class="form-outline mb-4">
                                                         <input type="text" id="address" name="address"
-                                                            class="form-control" required/>
+                                                            class="form-control" required />
                                                         <label class="form-label" for="form11Example4">Address</label>
                                                     </div>
                                                     <!-- pincode-->
                                                     <div class="form-outline mb-4">
                                                         <input type="text" id="pincode" name="pincode"
-                                                            class="form-control"  required/>
+                                                            class="form-control" required />
                                                         <label class="form-label" for="form11Example3">Pincode</label>
                                                     </div>
 
                                                     <!-- Email input -->
                                                     <div class="form-outline mb-4">
-                                                        <input type="email" id="email" name="email"
-                                                            class="form-control" required />
+                                                        <input type="email" id="email" name="email" class="form-control"
+                                                            required />
                                                         <label class="form-label" for="form11Example5">Email</label>
                                                     </div>
 
@@ -203,13 +202,14 @@
                         {{#each product }}
                         <div class="row">
                             <div class="col-md-4">
-                                <img src="upload/{{this.product.image}}"
-                                    class="rounded-3" style="width: 100px;" alt="food" />
+                                <img src="upload/{{this.product.image}}" class="rounded-3" style="width: 100px;"
+                                    alt="food" />
                             </div>
                             <div class="col-md-6 ms-3">
-                                <span class="mb-0 text-price">${{this.product.price}}</span>
+                                <span class="mb-0 text-price">{{this.product.price}}</span>
                                 <p class="mb-0 text-descriptions">{{this.product.name}} </p>
-                                <p class="text-descriptions mt-0">Qty:<span class="text-descriptions fw-bold">{{this.count}}</span>
+                                <p class="text-descriptions mt-0">Qty:<span
+                                        class="text-descriptions fw-bold">{{this.count}}</span>
                                 </p>
                             </div>
                         </div>
@@ -220,17 +220,17 @@
                                 <li
                                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
                                     Subtotal
-                                    <span> ${{priceDetails.totalPrice}}</span>
+                                    <span>&#x20B9;{{priceDetails.totalPrice}}</span>
                                 </li>
                                 <li
                                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
                                     Discount
-                                    <span>${{priceDetails.discount}} </span>
+                                    <span>{{priceDetails.discount}} </span>
                                 </li>
                                 <li
                                     class="list-group-item d-flex justify-content-between align-items-center px-0 fw-bold text-uppercase">
                                     Total to pay
-                                    <span>${{priceDetails.total}}</span>
+                                    <span>&#x20B9;{{priceDetails.total}}</span>
                                 </li>
                             </ul>
                         </div>

@@ -132,6 +132,213 @@ module.exports = {
             res(stat);
         })
 
+    },
+
+    activeUsers: () => {
+        return new Promise(async (res, rej) => {
+            const active = await userModel.find({ isActive: true })
+            res(active);
+        })
+    },
+
+    getRevenue: () => {
+        return new Promise(async (res, rej) => {
+            const revenue = await orderModel.aggregate([
+                {
+                    $match: {
+                        status: 'placed',
+                    }
+                }, {
+                    $group: {
+                        _id: null,
+                        totalAmount: {
+                            $sum: {
+                                $toDecimal: "$totalAmount"
+                            }
+                        }
+                    }
+                }
+
+            ])
+            console.log(revenue)
+            res(revenue[0])
+        })
+    },
+    getProfit: () => {
+        return new Promise(async (res, rej) => {
+            const profit = await orderModel.aggregate([
+                {
+                    $match: {
+                        status: "delivered",
+                    }
+                }, {
+                    $group: {
+                        _id: null,
+                        totalAmount: {
+                            $sum: {
+                                $toDecimal: "$totalAmount"
+                            }
+                        }
+                    }
+
+                }
+            ])
+            res(profit[0]);
+        })
+
+    },
+    findTotalCod: () => {
+        return new Promise(async (res, rej) => {
+            const totalCod = await orderModel.find({ paymentMethod: 'COD' })
+            res(totalCod);
+        })
+    },
+    findTotalCodAmount: () => {
+        return new Promise(async (res, rej) => {
+            const totalAmount = await orderModel.aggregate([{
+                $match: {
+                    paymentMethod: "COD"
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalAmount: {
+                        $sum: {
+                            $toDecimal: "$totalAmount"
+                        }
+                    }
+                }
+
+            }
+            ])
+            res(totalAmount[0])
+        })
+    },
+    findTotalOnline: () => {
+        return new Promise(async (res, rej) => {
+            const totalOnline = await orderModel.find({ paymentMethod: 'online' })
+            res(totalOnline);
+        })
+    },
+    findTotalOnlineAmount: () => {
+        return new Promise(async (res, rej) => {
+            const totalAmount = await orderModel.aggregate([{
+                $match: {
+                    paymentMethod: "online"
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalAmount: {
+                        $sum: {
+                            $toDecimal: "$totalAmount"
+                        }
+                    }
+                }
+
+            }
+            ])
+            res(totalAmount[0]);
+        })
+    },
+
+    getDeliveryStatus: () => {
+        const deliveryStatus = []
+        return new Promise(async (res, rej) => {
+            const onTheWay = await orderModel.aggregate([
+                {
+                    $unwind: "$products"
+                },
+                {
+                    $match: {
+                        "products.orderStatus": "on the way"
+
+                    }
+                }
+            ])
+            let orderontheway = onTheWay.length;
+            deliveryStatus.push(orderontheway);
+
+            const preparing = await orderModel.aggregate([
+                {
+                    $unwind: '$products'
+                },
+                {
+                    $match: {
+                        "products.orderStatus": "preparing"
+                    }
+                }
+
+            ])
+            let orderPreparing = preparing.length;
+            deliveryStatus.push(orderPreparing);
+
+            const completed = await orderModel.aggregate([
+                {
+                    $unwind: "$products"
+                },
+                {
+                    $match: {
+                        "products.orderStatus": "completed"
+                    }
+                }
+
+            ])
+            let orderCompleted = completed.length;
+            deliveryStatus.push(orderCompleted);
+
+            const cancel = await orderModel.aggregate([
+                {
+                    $unwind: "$products"
+                },
+                {
+                    $match: {
+                        "products.orderStatus": "canceled"
+                    }
+                }
+            ])
+            let orderCancel = cancel.length;
+            deliveryStatus.push(orderCancel);
+            res(deliveryStatus);
+        })
+
+    },
+
+    getPaymentStatus: () => {
+        const payment = [];
+        return new Promise(async (res, rej) => {
+            const cod = await orderModel.aggregate([{
+                $match: {
+                    paymentMethod: "COD",
+                },
+            },
+            ])
+            let codLength = cod.length;
+            payment.push(codLength);
+
+            const online = await orderModel.aggregate([{
+                $match: {
+                    paymentMethod: "online"
+                }
+            },
+            ])
+            let onlineLength = online.length;
+            payment.push(onlineLength);
+
+            res(payment);
+        })
+
+
+    },
+
+    getAllOrders : () => {
+        return new Promise (async (res,rej) => {
+            const orders = await orderModel.find({});
+            let ordersLength = orders.length ;
+            res(ordersLength);
+        })
     }
 
 }
