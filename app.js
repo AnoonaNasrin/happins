@@ -53,7 +53,7 @@ app.use("/admin/productmanagement/edit", express.static(path.join(__dirname, "pu
 app.use("/menu", express.static(path.join(__dirname, 'public')))
 app.use('/cart/:id', express.static(path.join(__dirname, "public")))
 app.use('/item-detail/:id', express.static(path.join(__dirname, 'public')))
-app.use('/menu/:id', express.static(path.join(__dirname, "public")))
+app.use('/menus/:id', express.static(path.join(__dirname, "public")))
 
 
 app.use("/", usersRouter);
